@@ -47,6 +47,12 @@ pip install -r requirements.txt
 ```bash
 flask --app main run
 ```
+## Database
+
+- This app uses a database to store tasks.
+- **You must create your own database** if you want to run it locally.
+- Update the database connection settings in `app.config` (or wherever your app stores database configuration).
+- Example: for SQLite, you could create a file like `todo.db`; for PostgreSQL/MySQL, create a database and user according to your setup.
 
 ## Screenshots
 
