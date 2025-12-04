@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="back-row-toggle splat-toggle">
+    <div class="rain front-row"></div>
+    <div class="rain back-row"></div>
+    <div class="content-wrapper">
+        <h1>To-Do App</h1>
+        <h2>To-Do-List</h2>
+
+        <form id="add_form" action="{{ url_for('add_task') }}" method="POST">
+        <input type="text" name="task" placeholder="Enter a task" required>
+        <button id="add_button" type="submit">Add Task</button>
+        </form>
+        <ul class="todo_list">
+            {% for todo in todos %}
+            <li >
+                <span class="task-text {% if todo.completed %}completed{% endif %}">{{ todo.task }}</span>
+                <div class="button_group">
+                    <!-- Check Button -->
+                    <form class="MyForms" action="{{ url_for('check_task') }}" method="POST" style="display: inline-block">
+                        <input type="hidden" name="task_id" value="{{ todo.id }}">
+                        <input type="checkbox" {% if todo.completed %}checked{% endif %} onchange="this.form.submit()">
+                        <button class="myButton" type="submit">Completed</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <form class="MyForms" action="{{ url_for('delete_task') }}" method="POST" style="display: inline-block">
+                        <input type="hidden" name="task_id" value="{{ todo.id }}">
+                        <button class="myButton" type="submit">Delete Task</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='rain.js') }}"></script>
+</body>
+</html>
